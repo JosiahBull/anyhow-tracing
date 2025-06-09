@@ -1,0 +1,11 @@
+---
+source: tests/integration_tests.rs
+expression: "format!(\"{:?}\", err)"
+snapshot_kind: text
+---
+User 'alice' failed to log in
+
+Fields:
+	value: "42",
+	operation: "login",
+	debug_data: "[\"a\", \"b\"]"

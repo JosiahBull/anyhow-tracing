@@ -1,0 +1,9 @@
+---
+source: tests/integration_tests.rs
+expression: "format!(\"{:?}\", err)"
+snapshot_kind: text
+---
+access denied
+
+Fields:
+	request_id: "req-abc"

@@ -1,0 +1,12 @@
+---
+source: tests/integration_tests.rs
+expression: "format!(\"{:?}\", err)"
+snapshot_kind: text
+---
+File operation failed
+
+Caused by:
+    file not found
+
+Fields:
+	filename: "config.toml"

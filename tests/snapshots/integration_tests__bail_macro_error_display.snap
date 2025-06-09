@@ -1,0 +1,6 @@
+---
+source: tests/integration_tests.rs
+expression: "format!(\"{}\", err)"
+snapshot_kind: text
+---
+Authentication failed [user_id="user-123", attempt=3]

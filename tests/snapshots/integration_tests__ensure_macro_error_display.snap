@@ -1,0 +1,6 @@
+---
+source: tests/integration_tests.rs
+expression: "format!(\"{}\", err)"
+snapshot_kind: text
+---
+Password is too short [policy=8+ chars]

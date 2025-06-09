@@ -1,0 +1,6 @@
+---
+source: tests/integration_tests.rs
+expression: "format!(\"{}\", contextual_err)"
+snapshot_kind: text
+---
+additional context [value=42, operation=login, debug_data=["a", "b"]]
