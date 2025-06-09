@@ -1,15 +1,13 @@
 # Anyhow-Tracing
 
+[![Crates.io](https://img.shields.io/crates/v/anyhow-tracing.svg)](https://crates.io/crates/anyhow-tracing)
+[![Documentation](https://docs.rs/anyhow-tracing/badge.svg)](https://docs.rs/anyhow-tracing)
+[![Tests](https://github.com/JosiahBull/anyhow-tracing/workflows/Tests/badge.svg)](https://github.com/JosiahBull/anyhow-tracing/actions)
+![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)
+
 An extension of the `anyhow` crate that provides named fields on an equivalent
 of `anyhow::Error`. Named fields are stored as a `Vec<(&'static str, String)>`
 to allow for passing the error object around as an owned instance.
-
-This crate provides macros `anyhow_tracing::anyhow!`, `anyhow_tracing::bail!`,
-and `anyhow_tracing::ensure!` to ensure feature compatibility with the `anyhow`
-crate and can be used as a drop-in replacement.
-
-⚠️ **Performance Note**: This comes at a significant performance and memory cost
-for error handling above and beyond the existing anyhow crate.
 
 ## Features
 
@@ -80,35 +78,6 @@ let result = fs::read_to_string("/nonexistent/file")
     .with_field("file_type", "toml");
 ```
 
-## Error Methods
-
-The `Error` type provides several methods for working with fields:
-
-```rust
-use anyhow_tracing::{anyhow, Error, Context};
-
-fn error_methods_example() {
-    let err: Error = anyhow!(field1 = "value1", field2 = "value2", "Test error");
-
-    // Get a specific field
-    let field_value = err.get_field("field1"); // Some("value1")
-
-    // Get all fields
-    let all_fields = err.fields(); // &[(&'static str, String)]
-
-    // Create new errors by adding fields
-    let err2 = anyhow!(field1 = "value1", field2 = "value2", "Test error");
-    let err_with_more_fields = err2.with_field("field3", "value3");
-
-    let err3 = anyhow!(field1 = "value1", field2 = "value2", "Test error");
-    let err_with_debug_field = err3.with_field_debug("field4", vec![1, 2, 3]);
-
-    // Add context while preserving fields
-    let err4 = anyhow!(field1 = "value1", field2 = "value2", "Test error");
-    let err_with_context = err4.context("Additional context");
-}
-```
-
 ## Context Trait Extensions
 
 The crate extends the `Context` trait to work with standard library types:
@@ -128,28 +97,6 @@ let result: Result<String> = maybe_value
     .context("Value was None");
 ```
 
-## Error Display
-
-Errors display both the error message and fields:
-
-```rust
-use anyhow_tracing::{anyhow, Error};
-let err: Error = anyhow!(
-    user_id = "user123",
-    session_id = "sess456",
-    "Authentication failed"
-);
-
-println!("{}", err);
-```
-
-## Performance Considerations
-
-This crate adds overhead compared to plain `anyhow`:
-
-- **Memory**: Each error stores a vector of field key-value pairs.
-- **Allocation**: Field values are converted to `String` for storage and for ownership to allow arbitrary movement of the error object.
-
 ## Compatibility
 
 This crate is designed to be a drop-in replacement for `anyhow` with additional functionality. Most `anyhow` code should work with minimal changes, primarily requiring:
@@ -158,10 +105,21 @@ This crate is designed to be a drop-in replacement for `anyhow` with additional 
 2. Macro syntax: Use `,` to separate fields and messages - similar to `tracing::event!`.
 3. Method chaining: Be explicit about context operations to avoid trait conflicts
 
-## License
+## 📄 License
 
-Licensed under either of [Apache License, Version 2.0](LICENSE-APACHE) or [MIT license](LICENSE-MIT) at your option.
+Licensed under either of
 
-## Contributing
+- Apache License, Version 2.0
+   ([LICENSE-APACHE](LICENSE-APACHE) or [http://www.apache.org/licenses/LICENSE-2.0](http://www.apache.org/licenses/LICENSE-2.0))
+- MIT license
+   ([LICENSE-MIT](LICENSE-MIT) or [http://opensource.org/licenses/MIT](http://opensource.org/licenses/MIT))
+
+at your option.
+
+## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
+
+Unless you explicitly state otherwise, any contribution intentionally submitted
+for inclusion in the work by you, as defined in the Apache-2.0 license, shall be
+dual licensed as above, without any additional terms or conditions.
