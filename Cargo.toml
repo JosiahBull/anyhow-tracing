@@ -1,6 +1,6 @@
 [package]
 name = "anyhow-tracing"
-version = "0.1.0"
+version = "0.2.0"
 edition = "2024"
 rust-version = "1.85" # Also update ci.yaml and .rust-toolchain.toml
 description = "An extension of the anyhow crate that provides named fields on errors"
