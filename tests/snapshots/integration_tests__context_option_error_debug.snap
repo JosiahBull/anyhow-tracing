@@ -1,0 +1,9 @@
+---
+source: tests/integration_tests.rs
+expression: "format!(\"{:?}\", err)"
+snapshot_kind: text
+---
+Value was missing
+
+Fields:
+	variable_name: "port"

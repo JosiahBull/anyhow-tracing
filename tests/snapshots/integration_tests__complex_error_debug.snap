@@ -1,0 +1,14 @@
+---
+source: tests/integration_tests.rs
+expression: "format!(\"{:?}\", err)"
+snapshot_kind: text
+---
+lazy context
+
+Caused by:
+    0: eager context
+    1: base error
+
+Fields:
+	field1: "value1",
+	field2: "[10, 20]"

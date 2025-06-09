@@ -1,0 +1,6 @@
+---
+source: tests/integration_tests.rs
+expression: "format!(\"{}\", err)"
+snapshot_kind: text
+---
+lazy context [field1=value1, field2=[10, 20]]
