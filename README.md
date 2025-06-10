@@ -6,7 +6,7 @@
 ![License](https://img.shields.io/badge/license-MIT%20OR%20Apache--2.0-blue.svg)
 
 An extension of the `anyhow` crate that provides named fields on an equivalent
-of `anyhow::Error`. Named fields are stored as a `Vec<(&'static str, String)>`
+of `anyhow::Error`. Named fields are stored as a `Vec<(&'static str, Box<str>)>`
 to allow for passing the error object around as an owned instance.
 
 ## Features

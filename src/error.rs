@@ -9,7 +9,7 @@ pub struct Error {
     /// The underlying anyhow error
     inner: anyhow::Error,
     /// Named fields stored as key-value pairs
-    fields: Vec<(&'static str, String)>,
+    fields: Vec<(&'static str, Box<str>)>,
 }
 
 impl Error {
@@ -28,18 +28,19 @@ impl Error {
 
     /// Add a named field to this error.
     pub fn with_field<V: fmt::Display>(mut self, key: &'static str, value: V) -> Self {
-        self.fields.push((key, value.to_string()));
+        self.fields.push((key, value.to_string().into_boxed_str()));
         self
     }
 
     /// Add a named field with debug formatting to this error.
     pub fn with_field_debug<V: fmt::Debug>(mut self, key: &'static str, value: V) -> Self {
-        self.fields.push((key, format!("{:?}", value)));
+        self.fields
+            .push((key, format!("{:?}", value).into_boxed_str()));
         self
     }
 
     /// Get the named fields.
-    pub fn fields(&self) -> &[(&'static str, String)] {
+    pub fn fields(&self) -> &[(&'static str, Box<str>)] {
         &self.fields
     }
 
@@ -48,7 +49,7 @@ impl Error {
         self.fields
             .iter()
             .find(|(k, _)| *k == key)
-            .map(|(_, v)| v.as_str())
+            .map(|(_, v)| v.as_ref())
     }
 
     /// Add context to this error, see [`anyhow::Context`] for more details.
